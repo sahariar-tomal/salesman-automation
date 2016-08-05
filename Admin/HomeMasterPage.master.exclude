@@ -1,0 +1,117 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="HomeMasterPage.master.cs" Inherits="HomeMasterPage" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head id="Head1" runat="server">
+    <title></title>
+    <link href="~/Styles/Site.css" rel="stylesheet" type="text/css" />
+    <asp:ContentPlaceHolder ID="HeadContent" runat="server">
+    </asp:ContentPlaceHolder>
+    <style type="text/css">
+
+
+.sidebar
+{ float: left;
+  width: 210px;
+  padding-left: 10px;
+  margin-bottom: 10px;}
+
+*
+{ margin: 0;
+  padding: 0;}
+
+.sidebar_item
+{ font: normal 100% Arial, Helvetica, sans-serif;
+  padding: 0 15px 0 0;
+  width: 201px;}
+
+    </style>
+</head>
+<body>
+    <form id="Form1" runat="server">
+    <div class="page">
+        <div class="header">
+            <div class="title">
+                <h1>
+                    ONLINE MARKETING MANAGEMENT
+                </h1>
+            </div>
+            <div class="loginDisplay">
+            </div>
+            <div class="clear hideSkiplink">
+                <asp:Menu ID="NavigationMenu" runat="server" CssClass="menu" 
+                    EnableViewState="False" IncludeStyleBlock="False" Orientation="Horizontal" 
+                    BackColor="#FFFBD6" DynamicHorizontalOffset="2" Font-Names="Verdana" 
+                    Font-Size="0.8em" ForeColor="#990000" StaticSubMenuIndent="10px">
+                    <DynamicHoverStyle BackColor="#990000" ForeColor="White" />
+                    <DynamicMenuItemStyle HorizontalPadding="5px" VerticalPadding="2px" />
+                    <DynamicMenuStyle BackColor="#FFFBD6" />
+                    <DynamicSelectedStyle BackColor="#FFCC66" />
+                    <Items>
+                        <asp:MenuItem Text="Home" Value="Home"></asp:MenuItem>
+                        <asp:MenuItem Text="Rep add" Value="Rep add" NavigateUrl="~/RepAdd.aspx"></asp:MenuItem>
+                        <asp:MenuItem Text="Products" Value="Products" NavigateUrl="~/ProductList.aspx"></asp:MenuItem>
+                        <asp:MenuItem Text="Sales" Value="Sales" NavigateUrl="~/SaleList.aspx"></asp:MenuItem>
+                        <asp:MenuItem Text="Rep Info" Value="Rep Activity" NavigateUrl="~/RepInfo.aspx"></asp:MenuItem>
+                        <asp:MenuItem Text="Schedule List" Value="Schedule List" 
+                            NavigateUrl="~/ScheduleList.aspx"></asp:MenuItem>
+                        <asp:MenuItem Text="Shops" Value="Shops" NavigateUrl="~/Shops.aspx">
+                        </asp:MenuItem>
+                        <asp:MenuItem Text="Notifications" Value="Notifications"></asp:MenuItem>
+                        <asp:MenuItem Text="Log out" Value="Log out" NavigateUrl="~/HomePage.aspx"></asp:MenuItem>
+                    </Items>
+                    <StaticHoverStyle BackColor="#990000" ForeColor="White" />
+                    <StaticMenuItemStyle HorizontalPadding="5px" VerticalPadding="2px" />
+                    <StaticSelectedStyle BackColor="#FFCC66" />
+                </asp:Menu>
+            </div>
+        </div>
+        <div class="main">
+            <asp:ContentPlaceHolder ID="MainContent" runat="server">
+                <div class="sidebar">
+                    <div class="sidebar_item">
+                        <h2>
+                            Latest Product</h2>
+                        <h4>
+                            May 2012</h4>
+                        <p>
+                            &nbsp;</p>
+                        <a href="#">Read more</a>
+                    </div>
+                    <!--close sidebar_item--> 
+                </div>
+                <div class="sidebar_item">
+                    <h2>
+                        Latest Sale</h2>
+                    <h4>
+                        May 2012</h4>
+                    <p>
+                        &nbsp;</p>
+                    <a href="#">Read more</a>
+                </div>
+                <div class="sidebar_item">
+                    <h2>
+                        Upcomming Product</h2>
+                    <h4>
+                        May 2012</h4>
+                    <p>
+                        &nbsp;</p>
+                    <a href="#">Read more</a>
+                </div>
+            </asp:ContentPlaceHolder>
+        </div>
+        <div class="clear">
+        </div>
+    </div>
+    <div class="footer">
+        
+    </div>
+    <div class="main">
+            <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+                <p>
+                    &nbsp;</p>
+            </asp:ContentPlaceHolder>
+        </div>
+    </form>
+</body>
+</html>

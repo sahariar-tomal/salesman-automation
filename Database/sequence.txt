@@ -1,0 +1,14 @@
+--Sequence
+drop sequence rid_seq;
+drop sequence pid_seq;
+drop sequence areacode_seq;
+drop sequence saleid_seq;
+create sequence rid_seq start with 1000 increment by 1; 
+create sequence pid_seq start with 1 increment by 1; 
+create sequence areacode_seq start with 5000 increment by 1;
+
+
+create sequence shopid_seq start with 10000 increment by 1;
+
+create sequence saleid_seq start with 2005 increment by 1;
+commit;

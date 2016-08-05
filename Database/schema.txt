@@ -1,0 +1,264 @@
+--droping oder
+drop trigger latestproduct_trigger;
+drop table admin;
+drop table rep_schedule;
+drop table shop_schedule;
+drop table REP_3;
+drop table REP_4;
+drop table SHOP_10;
+drop table SHOP_9;
+drop table repaddress;
+drop table bonusinfo;
+drop table SHOP_5;
+drop table SCHEDULE_11;
+drop table SALE;
+drop table latestproduct;
+drop table PRODUCT_6;
+drop table upcomingproduct;
+drop table notification;
+drop table REP_1;
+drop table SCHEDULE_8;
+
+--Sequence
+drop sequence rid_seq;
+drop sequence pid_seq;
+drop sequence areacode_seq;
+drop sequence shop_seq;
+drop sequence sale_seq;
+create sequence rid_seq start with 1002 increment by 1; 
+create sequence pid_seq start with 2 increment by 1; 
+create sequence areacode_seq start with 5002 increment by 1;
+
+create sequence shop_seq start with 2002 increment by 1;
+create sequence sale_seq start with 10002 increment by 1;
+commit;
+--Rid begins at 1000
+--Areacode begins with 5000
+--productid begins with 1
+--shopid begins with 2000
+--saleid begins with 10000
+CREATE TABLE ADMIN
+(
+	username varchar(20),
+	password varchar(20)
+)
+/
+insert into ADMIN values('akash','123');
+insert into Admin values('tomal','123');
+CREATE TABLE  "REP_1" 
+   (	"RID" VARCHAR2(20) NOT NULL,
+	username varchar(20) NOT NULL, 
+	"PASS" VARCHAR2(20) NOT NULL, 
+	 name varchar2(30),
+	dob date,
+	gender varchar(10),
+	nid varchar(30),
+	mobile varchar(20),
+	email varchar(20),
+	primary key(rid)
+   )
+/
+insert into REP_1 values('1000','akash','123','Syed Mhamudul Hasan','12-jan-90','male','545-764-748-977-487-4','07179461643','akash073@gmail.com');
+insert into REP_1 values('1001','Tomal','123','Najmuj shariar','13-feb-91','male','545-448-967-587-4','017456666','nstomal@gmail.com');
+--relational table
+create table repaddress (
+	rid varchar(20) NOT NULL,
+	houseno varchar(30),
+	roadno varchar(30), 
+	village varchar(30), 
+	thana varchar(30),
+	district varchar(30),
+	pcode varchar(30),
+	constraint repaddress_FK foreign key(rid)
+	references REP_1(rid) 
+)
+/
+insert into repaddress values('1000','12-ramna,dhaka','34-kalimudiin road','pabna sadar','pabna','rajshahi','1000');
+insert into repaddress values('1001','134-NIH,BUET,Dhaka','34-buet road','Capai sadar','Cahapay','rajshahi','1562');
+
+CREATE TABLE  "SHOP_5" 
+   (	"SHOPID" VARCHAR2(20) NOT NULL ENABLE, 
+	storename VARCHAR2(30),
+	ownername varchar(30),
+	primary key(shopid)
+   )
+/
+insert into shop_5 values('2000','akkkash store','Boss akash');
+insert into shop_5 values('2001','Tomal store','Tomal');
+CREATE TABLE  "SCHEDULE_8" 
+   (	"AREACODE" VARCHAR2(20) NOT NULL ENABLE,
+	zone varchar(20),
+	areaname varchar(20), 
+	"DATEOFDELIVERY" DATE, 
+	 PRIMARY KEY ("AREACODE")
+   )
+/
+insert into SCHEDULE_8 values('5000','Rajshahi','chapai','12-apr-12');
+insert into SCHEDULE_8 values('5001','Rajshahi','Pabna','10-apr-12');
+--relational table
+create table bonusinfo
+(
+	rid varchar(20) NOT NULL,
+	rank integer,
+	salary number(10,2),
+	totalorder number(10,2),
+	totaltarget number(10,2),
+	totalbonus number(10,2),
+	constraint bonusinfo_FK foreign key(rid)
+	references rep_1(rid)
+)
+/
+insert into bonusinfo values('1000',0,10000,1000,50000,0);
+insert into bonusinfo values('1001',1,20000,10000,50000,100);
+--relational table
+create table shop_schedule
+(
+	shopid varchar(20),
+	areacode varchar(20),
+	constraint shop_schedule_FK foreign key(shopid)
+	references shop_5(shopid),
+	constraint shop_schedule foreign key(areacode)
+	references schedule_8(areacode)	
+)
+/
+--relational table
+create table rep_schedule
+(
+	rid varchar(20),
+	areacode varchar(20),
+	constraint rip_schedule_Fk foreign key(rid)
+	references REP_1(rid),
+	constraint rep_schedule_FK2 foreign key(areacode)
+	references schedule_8(areacode)
+)
+/
+insert into rep_schedule values('1000','5000');
+insert into rep_schedule values('1001','5001');
+--relational table
+CREATE TABLE  "REP_3" 
+   (	"RID" VARCHAR2(20) NOT NULL ENABLE, 
+	"AREACODE" VARCHAR2(20), 
+	"SHOPID" VARCHAR2(20),
+	constraint rep_3_FK foreign key(RID)
+	references rep_1(RID),
+	constraint rep_3_FK2 foreign key(areacode)
+	references schedule_8(areacode),
+	constraint rep_3_FK3 foreign key(shopid)
+	references shop_5(shopid)
+   )
+/
+insert into rep_3 values('1000','5000','2000');
+insert into rep_3 values('1001','5001','2001');
+
+CREATE TABLE  "SALE" 
+   (	"SALEID" VARCHAR2(20) NOT NULL ENABLE, 
+	"SALEDATE" DATE, 
+	PRIMARY KEY ("SALEID")
+   )
+/
+insert into sale values('10000','12-apr-12');
+insert into sale values('10001','18-apr-12');
+--relational table
+CREATE TABLE  "SCHEDULE_11" 
+   (	saleid VARCHAR2(20) NOT NULL ENABLE,
+	DATEOFODER DATE, 
+	"DATEOFDELIVERY" DATE,
+	constraint SChedule_11_FK foreign key(saleid)
+	references SALE(saleid)
+   )
+/
+insert into SCHEDULE_11 values('10000','12-apr-12','15-apr-12');
+insert into SCHEDULE_11 values('10001','12-apr-12','15-apr-12');
+--relational table
+CREATE TABLE  "REP_4" 
+   (	"RID" VARCHAR2(20) NOT NULL ENABLE, 
+	"SALEID" VARCHAR2(20), 
+	"SHOPID" VARCHAR2(20), 
+	"DATEOFSALE" DATE, 
+	"STATUS" VARCHAR2(20),
+	constraint rep_4_Fk foreign key(rid) 
+	references rep_1(rid),
+	constraint rep_4_Fk2 foreign key(saleid) 
+	references sale(saleid),
+	constraint rep_4_Fk3 foreign key(shopid) 
+	references shop_5(shopid)	
+   )
+/
+insert into rep_4 values('1000','10000','2000','13-apr-12','ok');
+insert into rep_4 values('1001','10001','2001','13-apr-12','ok');
+------product-------------------------------------------------
+CREATE TABLE  "PRODUCT_6" 
+   (	"PID" VARCHAR2(20) NOT NULL ENABLE, 
+	"NAME" VARCHAR2(20), 
+	"UNITPRICE" NUMBER(10,2), 
+	"STOCK" NUMBER(10,0), 
+	 PRIMARY KEY ("PID")
+   )
+/
+
+
+--relational table
+create table latestproduct
+(
+	pid varchar(20),
+	productname varchar2(20),
+	unitprice number(10,2),
+	createdate date,
+	constraint latestproduct_fk foreign key(pid)
+	references product_6(pid)
+)
+/
+create or replace trigger latestproduct_trigger
+after insert on product_6
+for each row
+begin
+insert into latestproduct values(:new.pid,:new.name,:new.unitprice,sysdate);
+end;
+/
+insert into product_6 values('1','Soap',12,677);
+
+--relational table with own attribute
+CREATE TABLE  "SHOP_10" 
+   (	"SALEID" VARCHAR2(20),
+	productname varchar(20), 
+	"QUANTITY_OF_PRODUCT" NUMBER(10,0), 
+	"COST_OF_PRODUCT" NUMBER(10,2), 
+	constraint shop_10_FK foreign key(saleid) 
+	references sale(saleid)
+   )
+/
+insert into shop_10 values('10000','Soap',123,5000);
+insert into shop_10 values('10001','Cake',456,5000);
+insert into shop_10 values('10001','Pen',789,5000);
+insert into shop_10 values('10001','Paper',100,5000);
+
+--relational table with own attribute
+CREATE TABLE  "SHOP_9" 
+   (	"SALEID" VARCHAR2(20), 
+	"SHOPID" VARCHAR2(20), 
+	"COST" NUMBER(10,2), 
+	"PAYMENT" NUMBER(10,2), 
+	"PAYMENTSTATUS" NUMBER(10,2),
+	constraint shop_9_FK foreign key(saleid)
+	references sale(saleid),
+	constraint shop_9_FK2 foreign key(shopid)
+	references shop_5(shopid)
+   )
+/
+insert into shop_9 values('10000','2000',120,325,3444);
+insert into shop_9 values('10001','2001',120,325,3444);
+
+
+create table upcomingproduct
+(
+	productname varchar2(20)	
+)
+/
+create table notification
+(
+	ncounter integer
+)
+/
+
+commit;
+--hahaha
